@@ -13,7 +13,7 @@ func (p *Player) Levelup(){
 	fmt.Println(p.Name, "leveled up!")
 }
 
-func (p * Player) KnockOut(){
+func (p *Player) KnockOut(){
 	p.Alive = false
 	fmt.Println("Oh no! Hero was knocked out.")
 }
@@ -30,7 +30,7 @@ func main(){
 
 	p1.Levelup()
 
-	fmt.Println("Start Level:", p1.Level)
+	fmt.Println("New Level:", p1.Level)
 
 	p1.KnockOut()
 
