@@ -21,17 +21,32 @@ func main() {
 		})
 	})
 
-	// NEW CODE: Query Strings
+	// --- STEP 3: QUERY STRINGS ---
+
+	// Without Gin:
+	// http.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
+	//     // 1. You must parse the query string map manually
+	//     q := r.URL.Query()
+	//     term := q.Get("term")
+	//     // 2. Default values require manual "if" checks
+	//     page := q.Get("page")
+	//     if page == "" { page = "1" }
+	// })
+
+	// With Gin:
 	r.GET("/search", func(c *gin.Context) {
-		// Get value for 'q' from /search?q=something
-		query := c.Query("q") 
 		
-		// Get 'page', but default to "1" if not provided
+		// Gin Helper: c.Query()
+		// Gets the value for "term" from the URL
+		term := c.Query("term")
+
+		// Gin Helper: c.DefaultQuery()
+		// Gets "page", but returns "1" if the user didn't send it
 		page := c.DefaultQuery("page", "1")
 
 		c.JSON(http.StatusOK, gin.H{
-			"term": query,
-			"page": page,
+			"search_term": term,
+			"page_number": page,
 		})
 	})
 
